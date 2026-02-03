@@ -1,2 +1,3 @@
 FROM openjdk:11.0.16-jdk
-WORKDIR /usr/local/tcpserver
+ADD ../java/tcpserver-docker/* .
+CMD["./scripts/run.sh"]

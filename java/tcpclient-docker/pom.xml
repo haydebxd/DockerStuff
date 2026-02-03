@@ -7,6 +7,12 @@
   <version>1.0-SNAPSHOT</version>
   <name>docker-tcpclient</name>
   <url>http://maven.apache.org</url>
+  <parent>
+        <groupId>com.haydeb.dockerstuff</groupId>
+        <artifactId>tcp-aggregator</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 <build>
     <plugins>
         <plugin>
