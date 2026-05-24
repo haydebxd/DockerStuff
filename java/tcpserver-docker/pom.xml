@@ -1,35 +1,60 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.docker.app</groupId>
-  <artifactId>docker-test-app</artifactId>
+  <artifactId>tcpserver</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>docker-test-app</name>
   <url>http://maven.apache.org</url>
-  <parent>
+  <!-- <parent>
         <groupId>com.haydeb.dockerstuff</groupId>
         <artifactId>tcp-aggregator</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
-    </parent>
+    </parent> -->
   <build>
     <plugins>
-        <plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.docker.app.TcpServer</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.3.1</version>
+
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.3.0</version>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.13.0</version>
+
             <configuration>
-                <archive>
-                    <manifest>
-                        <addClasspath>true</addClasspath>
-                        <mainClass>com.docker.app.TcpServer</mainClass>
-                    </manifest>
-                </archive>
+                <source>11</source>
+                <target>11</target>
             </configuration>
         </plugin>
     </plugins>
-</build>
+  </build>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

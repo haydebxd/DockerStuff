@@ -1,0 +1,39 @@
+# =========================
+# BUILD STAGE
+# =========================
+FROM eclipse-temurin:11 AS builder
+
+WORKDIR /app
+
+# copy Maven wrapper + config
+COPY mvnw .
+COPY .mvn/ .mvn/
+COPY pom.xml .
+
+RUN chmod +x mvnw
+
+# copy source
+COPY src/ src/
+
+# build jar
+RUN ./mvnw clean package -DskipTests
+
+
+# =========================
+# RUNTIME STAGE
+# =========================
+FROM eclipse-temurin:11 AS runtime
+
+WORKDIR /app
+
+# copy jar from builder
+COPY --from=builder /app/target/*.jar /app/target/tcpserver-1.0.jar
+
+# copy run script
+COPY scripts/run.sh /app/run.sh
+
+# make sure script is executable
+RUN chmod +x /app/run.sh
+
+# entrypoint
+ENTRYPOINT ["/app/run.sh"]
